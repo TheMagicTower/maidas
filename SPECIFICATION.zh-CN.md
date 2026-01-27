@@ -569,3 +569,11 @@ tags: [tech, standard]
 | 版本 | 日期 | 变更 |
 |------|------|------|
 | 0.1.0 | 2025-01-27 | 初始草案发布 |
+
+---
+
+## Conformance Examples (v0.1)
+
+Reference conformance examples live in:
+- `conformance/v0.1/valid/`
+- `conformance/v0.1/invalid/`

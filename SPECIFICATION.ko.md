@@ -569,3 +569,11 @@ tags: [tech, standard]
 | 버전 | 날짜 | 변경사항 |
 |------|------|----------|
 | 0.1.0 | 2025-01-27 | 최초 초안 릴리스 |
+
+---
+
+## Conformance Examples (v0.1)
+
+Reference conformance examples live in:
+- `conformance/v0.1/valid/`
+- `conformance/v0.1/invalid/`

@@ -564,6 +564,69 @@ Today we release MAiDAS 0.1.0...
 
 ---
 
+## 12. Grammar Profiles & Conformance (Proposal)
+
+To make MAiDAS reliable for AI agents without introducing JSON, define each version as a strict Markdown “grammar profile” (DTD-like rules for structure).
+
+### 12.1 Required Document Types (v0.1 Profile)
+
+The v0.1 profile defines four normative document types:
+- Entry point: `/.well-known/index.md`
+- Schema: `/<resource>/_schema.md`
+- List: `/<resource>/_index.md`
+- Resource: `/<resource>/{id}.md`
+
+### 12.2 Structural Grammar Rules (v0.1 Profile)
+
+For v0.1, document structure is normative:
+- All documents SHOULD start with YAML frontmatter.
+- The first H1 (`#`) is the document title.
+- Required sections MUST use fixed H2 headings.
+- Required tables MUST use fixed column names.
+
+Type-specific required H2 sections:
+- Entry point: `## Pages`, `## API`
+- Schema: `## Fields`, `## Actions`
+- List: no required H2 sections, but list items MUST be links
+- Resource: no required H2 sections
+
+### 12.3 Frontmatter Requirements (v0.1 Profile)
+
+Required frontmatter keys by type:
+- Entry point: `version`
+- Schema: none required, but `resource` and `version` are RECOMMENDED
+- List: `page`, `limit`, `total`
+- Resource: keys SHOULD match fields defined in `_schema.md`
+
+Unknown frontmatter keys are allowed but MUST NOT change the meaning of required keys.
+
+### 12.4 Conformance Test Layout (Recommended)
+
+Treat conformance examples as part of the standard:
+
+```text
+conformance/
+  v0.1/
+    valid/
+      entrypoint.min.md
+      schema.min.md
+      list.min.md
+      resource.min.md
+    invalid/
+      entrypoint.missing-api.md
+      schema.missing-actions.md
+```
+
+Agents and tools can implement a validator that checks “profile v0.1” by verifying required files, headings, frontmatter keys, and table schemas.
+
+### 12.5 Conformance Examples (v0.1)
+
+Reference conformance examples live in:
+- `conformance/v0.1/valid/`
+- `conformance/v0.1/invalid/`
+
+---
+
 ## Appendix: Version History
 
 | Version | Date | Changes |

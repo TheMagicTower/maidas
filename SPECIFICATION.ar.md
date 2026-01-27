@@ -251,3 +251,11 @@ Authorization: Bearer {token}
 | الإصدار | التاريخ | التغييرات |
 |---------|---------|-----------|
 | 0.1.0 | 2025-01-27 | الإصدار الأولي للمسودة |
+
+---
+
+## Conformance Examples (v0.1)
+
+Reference conformance examples live in:
+- `conformance/v0.1/valid/`
+- `conformance/v0.1/invalid/`

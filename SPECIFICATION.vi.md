@@ -235,3 +235,11 @@ Authorization: Bearer {token}
 | Phiên bản | Ngày | Thay đổi |
 |-----------|------|----------|
 | 0.1.0 | 2025-01-27 | Phát hành bản nháp đầu tiên |
+
+---
+
+## Conformance Examples (v0.1)
+
+Reference conformance examples live in:
+- `conformance/v0.1/valid/`
+- `conformance/v0.1/invalid/`

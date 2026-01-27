@@ -272,3 +272,11 @@ Authorization: Bearer {token}
 | Versione | Data | Modifiche |
 |----------|------|-----------|
 | 0.1.0 | 2025-01-27 | Rilascio bozza iniziale |
+
+---
+
+## Conformance Examples (v0.1)
+
+Reference conformance examples live in:
+- `conformance/v0.1/valid/`
+- `conformance/v0.1/invalid/`
