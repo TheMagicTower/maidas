@@ -96,7 +96,7 @@ total: 2
 
 ## Документация
 
-Полную спецификацию см. в [SPECIFICATION.md](SPECIFICATION.md).
+Полную спецификацию см. в [SPECIFICATION.ru.md](SPECIFICATION.ru.md).
 
 ## Статус
 

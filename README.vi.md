@@ -96,7 +96,7 @@ total: 2
 
 ## Tài liệu
 
-Xem [SPECIFICATION.md](SPECIFICATION.md) để biết đặc tả đầy đủ.
+Xem [SPECIFICATION.vi.md](SPECIFICATION.vi.md) để biết đặc tả đầy đủ.
 
 ## Trạng thái
 

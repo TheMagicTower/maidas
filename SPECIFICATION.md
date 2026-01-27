@@ -2,26 +2,30 @@
 
 **Markdown AI Data Access Standard**
 
-AI 에이전트를 위한 마크다운 기반 웹 데이터 접근 표준
+A markdown-based web data access standard for AI agents
 
 ---
 
-## 1. 개요
+**Translations**: [한국어](SPECIFICATION.ko.md) | [日本語](SPECIFICATION.ja.md) | [简体中文](SPECIFICATION.zh-CN.md) | [繁體中文](SPECIFICATION.zh-TW.md) | [Español](SPECIFICATION.es.md) | [Français](SPECIFICATION.fr.md) | [Deutsch](SPECIFICATION.de.md) | [Português](SPECIFICATION.pt-BR.md) | [Русский](SPECIFICATION.ru.md) | [العربية](SPECIFICATION.ar.md) | [हिन्दी](SPECIFICATION.hi.md) | [Italiano](SPECIFICATION.it.md) | [Tiếng Việt](SPECIFICATION.vi.md) | [ไทย](SPECIFICATION.th.md) | [Bahasa Indonesia](SPECIFICATION.id.md) | [Türkçe](SPECIFICATION.tr.md) | [Polski](SPECIFICATION.pl.md) | [Nederlands](SPECIFICATION.nl.md) | [Українська](SPECIFICATION.uk.md)
 
-### 1.1 목적
+---
 
-MAiDAS는 AI 에이전트가 웹 데이터를 쉽게 읽고 쓸 수 있도록 설계된 표준입니다. 기존 HTML/JavaScript 기반 웹은 AI가 파싱하기 어렵고 불필요한 정보가 많습니다. MAiDAS는 마크다운만으로 모든 데이터 교환을 처리합니다.
+## 1. Overview
 
-### 1.2 원칙
+### 1.1 Purpose
 
-- **단순함**: 마크다운 + 최소한의 규칙
-- **표준 준수**: HTTP 표준 메서드, RFC 7763 (text/markdown)
-- **병행 운영**: 기존 HTML 사이트와 함께 운영 가능
-- **AI 최적화**: UI 없이 데이터만 주고받음
+MAiDAS is a standard designed for AI agents to easily read and write web data. Traditional HTML/JavaScript-based web is difficult for AI to parse and contains unnecessary information. MAiDAS handles all data exchange using only markdown.
 
-### 1.3 MIME 타입
+### 1.2 Principles
 
-모든 요청과 응답은 다음 Content-Type을 사용합니다:
+- **Simplicity**: Markdown + minimal rules
+- **Standards Compliance**: HTTP standard methods, RFC 7763 (text/markdown)
+- **Parallel Operation**: Can run alongside existing HTML sites
+- **AI Optimization**: Exchange data only, without UI
+
+### 1.3 MIME Type
+
+All requests and responses use the following Content-Type:
 
 ```
 Content-Type: text/markdown; charset=utf-8
@@ -29,18 +33,18 @@ Content-Type: text/markdown; charset=utf-8
 
 ---
 
-## 2. 파일 구조
+## 2. File Structure
 
-### 2.1 기본 구조
+### 2.1 Basic Structure
 
 ```
 example.com/
 ├── .well-known/
-│   └── index.md           # 필수. 사이트 진입점
+│   └── index.md           # Required. Site entry point
 ├── articles/
-│   ├── _schema.md         # API 스키마
-│   ├── _index.md          # 목록
-│   ├── first-post.md      # 개별 문서
+│   ├── _schema.md         # API schema
+│   ├── _index.md          # List
+│   ├── first-post.md      # Individual document
 │   └── second-post.md
 ├── comments/
 │   ├── _schema.md
@@ -49,129 +53,129 @@ example.com/
 └── about.md
 ```
 
-### 2.2 시스템 파일
+### 2.2 System Files
 
-언더스코어(`_`) prefix가 붙은 파일은 시스템 파일입니다:
+Files with underscore (`_`) prefix are system files:
 
-| 파일 | 용도 |
-|------|------|
-| `_schema.md` | 리소스 CRUD 스키마 정의 |
-| `_index.md` | 리소스 목록 |
+| File | Purpose |
+|------|---------|
+| `_schema.md` | Resource CRUD schema definition |
+| `_index.md` | Resource list |
 
 ---
 
-## 3. 진입점
+## 3. Entry Point
 
-### 3.1 위치
+### 3.1 Location
 
 ```
 /.well-known/index.md
 ```
 
-### 3.2 형식
+### 3.2 Format
 
 ```markdown
 ---
 version: 0.1.0
 ---
 
-# 사이트명
+# Site Name
 
-> 사이트 설명 한 줄
+> One-line site description
 
-## 페이지
+## Pages
 
-- [소개](/about.md)
-- [글 목록](/articles/_index.md)
+- [About](/about.md)
+- [Article List](/articles/_index.md)
 
 ## API
 
-- [글 관리](/articles/) - [schema](/articles/_schema.md)
-- [댓글 관리](/comments/) - [schema](/comments/_schema.md)
+- [Article Management](/articles/) - [schema](/articles/_schema.md)
+- [Comment Management](/comments/) - [schema](/comments/_schema.md)
 ```
 
-### 3.3 필드
+### 3.3 Fields
 
-| 필드 | 필수 | 설명 |
-|------|------|------|
-| version | Y | MAiDAS 스펙 버전 |
+| Field | Required | Description |
+|-------|----------|-------------|
+| version | Y | MAiDAS spec version |
 
 ---
 
-## 4. 스키마 정의
+## 4. Schema Definition
 
-### 4.1 위치
+### 4.1 Location
 
-각 리소스 폴더 내 `_schema.md`
+`_schema.md` within each resource folder
 
 ```
 /articles/_schema.md
 /comments/_schema.md
 ```
 
-### 4.2 형식
+### 4.2 Format
 
 ```markdown
 # Articles API
 
-## 인증
+## Authentication
 
-- 방식: Bearer
-- 헤더: `Authorization: Bearer {token}`
-- 필수: Y
+- Method: Bearer
+- Header: `Authorization: Bearer {token}`
+- Required: Y
 
-## 필드
+## Fields
 
-| 필드 | 타입 | 필수 | 설명 |
-|------|------|------|------|
-| title | string | Y | 제목 |
-| content | string(markdown) | Y | 본문 |
-| tags | array(string) | N | 태그 목록 |
-| date | date | N | 작성일 |
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| title | string | Y | Title |
+| content | string(markdown) | Y | Body |
+| tags | array(string) | N | Tag list |
+| date | date | N | Created date |
 
-## 액션
+## Actions
 
-- GET /articles/_index.md - 목록 조회
-- GET /articles/{id}.md - 개별 조회
-- POST /articles/ - 생성
-- PUT /articles/{id}.md - 수정
-- DELETE /articles/{id}.md - 삭제
+- GET /articles/_index.md - List
+- GET /articles/{id}.md - Read
+- POST /articles/ - Create
+- PUT /articles/{id}.md - Update
+- DELETE /articles/{id}.md - Delete
 ```
 
-### 4.3 타입 시스템
+### 4.3 Type System
 
-**기본 타입**
+**Basic Types**
 
-| 타입 | 설명 |
-|------|------|
-| string | 문자열 |
-| number | 숫자 |
-| boolean | 참/거짓 |
-| date | 날짜 (ISO 8601) |
-| array | 배열 |
+| Type | Description |
+|------|-------------|
+| string | String |
+| number | Number |
+| boolean | True/False |
+| date | Date (ISO 8601) |
+| array | Array |
 
-**포맷 힌트 (선택)**
+**Format Hints (Optional)**
 
-타입 뒤 괄호로 표기:
+Notation in parentheses after type:
 
-| 포맷 | 설명 |
-|------|------|
-| string(markdown) | 마크다운 허용 |
-| string(url) | URL 형식 |
-| string(email) | 이메일 형식 |
-| date(datetime) | 날짜+시간 |
-| array(string) | 문자열 배열 |
-| array(number) | 숫자 배열 |
+| Format | Description |
+|--------|-------------|
+| string(markdown) | Markdown allowed |
+| string(url) | URL format |
+| string(email) | Email format |
+| date(datetime) | Date+Time |
+| array(string) | String array |
+| array(number) | Number array |
 
 ---
 
-## 5. 목록 응답
+## 5. List Response
 
-### 5.1 위치
+### 5.1 Location
 
-각 리소스 폴더 내 `_index.md`
+`_index.md` within each resource folder
 
-### 5.2 형식
+### 5.2 Format
 
 ```markdown
 ---
@@ -184,65 +188,65 @@ total: 57
 
 > title | date | tags
 
-- [첫 번째 글](/articles/first-post.md) | 2025-01-27 | #tech, #ai
-- [두 번째 글](/articles/second-post.md) | 2025-01-26 | #diary
-- [세 번째 글](/articles/third-post.md) | 2025-01-25 |
+- [First Post](/articles/first-post.md) | 2025-01-27 | #tech, #ai
+- [Second Post](/articles/second-post.md) | 2025-01-26 | #diary
+- [Third Post](/articles/third-post.md) | 2025-01-25 |
 ```
 
-### 5.3 규칙
+### 5.3 Rules
 
-- 첫 줄 blockquote(`>`)로 필드 헤더 정의
-- 링크 뒤에 `|` 구분자로 필드값 나열
-- 빈 값은 비워둠
-- frontmatter에 페이지네이션 정보
+- Define field headers with blockquote (`>`) on first line
+- List field values after link with `|` separator
+- Leave empty values blank
+- Pagination info in frontmatter
 
 ---
 
-## 6. 개별 문서
+## 6. Individual Document
 
-### 6.1 형식
+### 6.1 Format
 
 ```markdown
 ---
-title: 첫 번째 글
+title: First Post
 date: 2025-01-27
 tags: [tech, ai]
 ---
 
-# 첫 번째 글
+# First Post
 
-본문 내용...
+Body content...
 ```
 
-### 6.2 규칙
+### 6.2 Rules
 
-- frontmatter: YAML 형식 (`---`로 감싸기)
-- 본문: 마크다운
-- 필수 필드: `_schema.md`에서 정의한 대로
+- frontmatter: YAML format (wrapped with `---`)
+- Body: Markdown
+- Required fields: As defined in `_schema.md`
 
 ---
 
-## 7. CRUD 요청/응답
+## 7. CRUD Request/Response
 
-### 7.1 생성 (POST)
+### 7.1 Create (POST)
 
-**요청**
+**Request**
 ```
 POST /articles/
 Content-Type: text/markdown; charset=utf-8
 Authorization: Bearer {token}
 
 ---
-title: 새 글
+title: New Post
 tags: [tech]
 ---
 
-# 새 글
+# New Post
 
-본문 내용...
+Body content...
 ```
 
-**응답**
+**Response**
 ```markdown
 ---
 status: 201
@@ -250,40 +254,40 @@ status: 201
 
 # Created
 
-문서가 생성되었습니다: /articles/new-post.md
+Document created: /articles/new-post.md
 ```
 
-### 7.2 조회 (GET)
+### 7.2 Read (GET)
 
-**목록 조회**
+**List**
 ```
 GET /articles/_index.md
 ```
 
-**개별 조회**
+**Individual**
 ```
 GET /articles/first-post.md
 ```
 
-### 7.3 수정 (PUT)
+### 7.3 Update (PUT)
 
-**요청**
+**Request**
 ```
 PUT /articles/first-post.md
 Content-Type: text/markdown; charset=utf-8
 Authorization: Bearer {token}
 
 ---
-title: 수정된 제목
+title: Updated Title
 tags: [tech, ai]
 ---
 
-# 수정된 제목
+# Updated Title
 
-수정된 본문...
+Updated body...
 ```
 
-**응답**
+**Response**
 ```markdown
 ---
 status: 200
@@ -291,18 +295,18 @@ status: 200
 
 # OK
 
-문서가 수정되었습니다.
+Document updated.
 ```
 
-### 7.4 삭제 (DELETE)
+### 7.4 Delete (DELETE)
 
-**요청**
+**Request**
 ```
 DELETE /articles/first-post.md
 Authorization: Bearer {token}
 ```
 
-**응답**
+**Response**
 ```markdown
 ---
 status: 200
@@ -310,32 +314,32 @@ status: 200
 
 # OK
 
-문서가 삭제되었습니다.
+Document deleted.
 ```
 
 ---
 
-## 8. 쿼리 파라미터
+## 8. Query Parameters
 
-### 8.1 페이지네이션
+### 8.1 Pagination
 
 ```
 GET /articles/_index.md?page=2&limit=20
 ```
 
-| 파라미터 | 기본값 | 설명 |
-|----------|--------|------|
-| page | 1 | 페이지 번호 |
-| limit | 서버 설정 | 페이지당 항목 수 |
+| Parameter | Default | Description |
+|-----------|---------|-------------|
+| page | 1 | Page number |
+| limit | Server config | Items per page |
 
-응답 frontmatter에 포함:
-- `page`: 현재 페이지
-- `limit`: 페이지당 항목 수
-- `total`: 전체 항목 수
+Included in response frontmatter:
+- `page`: Current page
+- `limit`: Items per page
+- `total`: Total items
 
-### 8.2 필터
+### 8.2 Filter
 
-필드명을 쿼리 파라미터로 사용:
+Use field names as query parameters:
 
 ```
 GET /articles/_index.md?tag=tech
@@ -343,28 +347,28 @@ GET /articles/_index.md?date=2025-01
 GET /articles/_index.md?tag=tech&date=2025-01
 ```
 
-### 8.3 정렬
+### 8.3 Sort
 
 ```
 GET /articles/_index.md?sort=-date,title
 ```
 
-**규칙**
-- `sort` 파라미터 사용
-- 콤마로 다중 필드 (우선순위 순)
-- `-` prefix: 내림차순
-- prefix 없음: 오름차순
+**Rules**
+- Use `sort` parameter
+- Comma-separated for multiple fields (priority order)
+- `-` prefix: Descending
+- No prefix: Ascending
 
-**예시**
+**Examples**
 ```
-?sort=date          # date 오름차순
-?sort=-date         # date 내림차순
-?sort=-date,title   # date 내림차순, 같으면 title 오름차순
+?sort=date          # date ascending
+?sort=-date         # date descending
+?sort=-date,title   # date descending, then title ascending
 ```
 
-### 8.4 조합
+### 8.4 Combination
 
-모든 쿼리 파라미터는 조합 가능:
+All query parameters can be combined:
 
 ```
 GET /articles/_index.md?tag=tech&sort=-date&page=2&limit=10
@@ -372,65 +376,65 @@ GET /articles/_index.md?tag=tech&sort=-date&page=2&limit=10
 
 ---
 
-## 9. 인증
+## 9. Authentication
 
-### 9.1 방식
+### 9.1 Method
 
-HTTP 표준 Bearer 토큰 인증
+HTTP standard Bearer token authentication
 
 ```
 Authorization: Bearer {token}
 ```
 
-### 9.2 스키마 표기
+### 9.2 Schema Notation
 
 ```markdown
-## 인증
+## Authentication
 
-- 방식: Bearer
-- 헤더: `Authorization: Bearer {token}`
-- 필수: Y
+- Method: Bearer
+- Header: `Authorization: Bearer {token}`
+- Required: Y
 ```
 
-인증이 필요 없는 경우:
+When authentication is not required:
 
 ```markdown
-## 인증
+## Authentication
 
-- 필수: N
+- Required: N
 ```
 
 ---
 
-## 10. 에러 처리
+## 10. Error Handling
 
-### 10.1 형식
+### 10.1 Format
 
-모든 에러 응답도 마크다운:
+All error responses are also markdown:
 
 ```markdown
 ---
-status: {HTTP 상태 코드}
+status: {HTTP status code}
 ---
 
-# {에러 제목}
+# {Error Title}
 
-{에러 설명}
+{Error description}
 ```
 
-### 10.2 상태 코드
+### 10.2 Status Codes
 
-| 코드 | 제목 | 설명 |
-|------|------|------|
-| 200 | OK | 성공 |
-| 201 | Created | 생성됨 |
-| 400 | Bad Request | 잘못된 요청 |
-| 401 | Unauthorized | 인증 필요 |
-| 403 | Forbidden | 권한 없음 |
-| 404 | Not Found | 문서 없음 |
-| 500 | Internal Server Error | 서버 오류 |
+| Code | Title | Description |
+|------|-------|-------------|
+| 200 | OK | Success |
+| 201 | Created | Created |
+| 400 | Bad Request | Invalid request |
+| 401 | Unauthorized | Authentication required |
+| 403 | Forbidden | No permission |
+| 404 | Not Found | Document not found |
+| 500 | Internal Server Error | Server error |
 
-### 10.3 예시
+### 10.3 Examples
 
 **401 Unauthorized**
 ```markdown
@@ -440,7 +444,7 @@ status: 401
 
 # Unauthorized
 
-인증이 필요합니다.
+Authentication required.
 ```
 
 **400 Bad Request**
@@ -451,7 +455,7 @@ status: 400
 
 # Bad Request
 
-title 필드는 필수입니다.
+The title field is required.
 ```
 
 **404 Not Found**
@@ -462,14 +466,14 @@ status: 404
 
 # Not Found
 
-요청한 문서가 없습니다.
+The requested document was not found.
 ```
 
 ---
 
-## 11. 전체 예시
+## 11. Complete Example
 
-### 11.1 진입점
+### 11.1 Entry Point
 
 `GET /.well-known/index.md`
 
@@ -480,49 +484,49 @@ version: 0.1.0
 
 # My Blog
 
-> 개인 블로그입니다.
+> A personal blog.
 
-## 페이지
+## Pages
 
-- [소개](/about.md)
+- [About](/about.md)
 
 ## API
 
-- [글 관리](/articles/) - [schema](/articles/_schema.md)
+- [Article Management](/articles/) - [schema](/articles/_schema.md)
 ```
 
-### 11.2 스키마
+### 11.2 Schema
 
 `GET /articles/_schema.md`
 
 ```markdown
 # Articles API
 
-## 인증
+## Authentication
 
-- 방식: Bearer
-- 헤더: `Authorization: Bearer {token}`
-- 필수: Y (생성/수정/삭제), N (조회)
+- Method: Bearer
+- Header: `Authorization: Bearer {token}`
+- Required: Y (create/update/delete), N (read)
 
-## 필드
+## Fields
 
-| 필드 | 타입 | 필수 | 설명 |
-|------|------|------|------|
-| title | string | Y | 제목 |
-| content | string(markdown) | Y | 본문 |
-| tags | array(string) | N | 태그 목록 |
-| date | date | N | 작성일 (기본: 현재) |
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| title | string | Y | Title |
+| content | string(markdown) | Y | Body |
+| tags | array(string) | N | Tag list |
+| date | date | N | Created date (default: now) |
 
-## 액션
+## Actions
 
-- GET /articles/_index.md - 목록 조회
-- GET /articles/{id}.md - 개별 조회
-- POST /articles/ - 생성
-- PUT /articles/{id}.md - 수정
-- DELETE /articles/{id}.md - 삭제
+- GET /articles/_index.md - List
+- GET /articles/{id}.md - Read
+- POST /articles/ - Create
+- PUT /articles/{id}.md - Update
+- DELETE /articles/{id}.md - Delete
 ```
 
-### 11.3 목록
+### 11.3 List
 
 `GET /articles/_index.md?sort=-date&limit=10`
 
@@ -537,31 +541,31 @@ total: 25
 
 > title | date | tags
 
-- [MAiDAS 표준 발표](/articles/maidas-release.md) | 2025-01-27 | #tech, #standard
-- [AI 웹의 미래](/articles/ai-web-future.md) | 2025-01-26 | #ai
-- [마크다운 활용법](/articles/markdown-tips.md) | 2025-01-25 | #markdown
+- [MAiDAS Standard Release](/articles/maidas-release.md) | 2025-01-27 | #tech, #standard
+- [Future of AI Web](/articles/ai-web-future.md) | 2025-01-26 | #ai
+- [Markdown Tips](/articles/markdown-tips.md) | 2025-01-25 | #markdown
 ```
 
-### 11.4 개별 문서
+### 11.4 Individual Document
 
 `GET /articles/maidas-release.md`
 
 ```markdown
 ---
-title: MAiDAS 표준 발표
+title: MAiDAS Standard Release
 date: 2025-01-27
 tags: [tech, standard]
 ---
 
-# MAiDAS 표준 발표
+# MAiDAS Standard Release
 
-오늘 MAiDAS 0.1.0을 발표합니다...
+Today we release MAiDAS 0.1.0...
 ```
 
 ---
 
-## 부록: 버전 히스토리
+## Appendix: Version History
 
-| 버전 | 날짜 | 변경사항 |
-|------|------|----------|
-| 0.1.0 | 2025-01-27 | 최초 초안 릴리스 |
+| Version | Date | Changes |
+|---------|------|---------|
+| 0.1.0 | 2025-01-27 | Initial draft release |

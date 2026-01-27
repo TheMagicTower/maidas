@@ -96,7 +96,7 @@ total: 2
 
 ## Documentazione
 
-Vedere [SPECIFICATION.md](SPECIFICATION.md) per la specifica completa.
+Vedere [SPECIFICATION.it.md](SPECIFICATION.it.md) per la specifica completa.
 
 ## Stato
 

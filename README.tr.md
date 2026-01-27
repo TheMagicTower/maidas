@@ -96,7 +96,7 @@ total: 2
 
 ## Dokümantasyon
 
-Tam spesifikasyon için [SPECIFICATION.md](SPECIFICATION.md) dosyasına bakın.
+Tam spesifikasyon için [SPECIFICATION.tr.md](SPECIFICATION.tr.md) dosyasına bakın.
 
 ## Durum
 

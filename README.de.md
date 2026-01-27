@@ -96,7 +96,7 @@ total: 2
 
 ## Dokumentation
 
-Die vollständige Spezifikation finden Sie in [SPECIFICATION.md](SPECIFICATION.md).
+Die vollständige Spezifikation finden Sie in [SPECIFICATION.de.md](SPECIFICATION.de.md).
 
 ## Status
 

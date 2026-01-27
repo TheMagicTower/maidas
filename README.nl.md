@@ -96,7 +96,7 @@ total: 2
 
 ## Documentatie
 
-Zie [SPECIFICATION.md](SPECIFICATION.md) voor de volledige specificatie.
+Zie [SPECIFICATION.nl.md](SPECIFICATION.nl.md) voor de volledige specificatie.
 
 ## Status
 

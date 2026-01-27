@@ -96,7 +96,7 @@ total: 2
 
 ## 文档
 
-完整规范请参阅[SPECIFICATION.md](SPECIFICATION.md)。
+完整规范请参阅[SPECIFICATION.zh-CN.md](SPECIFICATION.zh-CN.md)。
 
 ## 状态
 

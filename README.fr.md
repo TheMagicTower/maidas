@@ -96,7 +96,7 @@ total: 2
 
 ## Documentation
 
-Consultez [SPECIFICATION.md](SPECIFICATION.md) pour la spécification complète.
+Consultez [SPECIFICATION.fr.md](SPECIFICATION.fr.md) pour la spécification complète.
 
 ## Statut
 

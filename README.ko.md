@@ -96,7 +96,7 @@ total: 2
 
 ## 문서
 
-전체 스펙은 [SPECIFICATION.md](SPECIFICATION.md)를 참조하세요.
+전체 스펙은 [SPECIFICATION.ko.md](SPECIFICATION.ko.md)를 참조하세요.
 
 ## 상태
 

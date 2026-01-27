@@ -96,7 +96,7 @@ total: 2
 
 ## 文件
 
-完整規範請參閱[SPECIFICATION.md](SPECIFICATION.md)。
+完整規範請參閱[SPECIFICATION.zh-TW.md](SPECIFICATION.zh-TW.md)。
 
 ## 狀態
 

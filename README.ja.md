@@ -96,7 +96,7 @@ total: 2
 
 ## ドキュメント
 
-完全な仕様は[SPECIFICATION.md](SPECIFICATION.md)を参照してください。
+完全な仕様は[SPECIFICATION.ja.md](SPECIFICATION.ja.md)を参照してください。
 
 ## ステータス
 

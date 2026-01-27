@@ -96,7 +96,7 @@ total: 2
 
 ## เอกสาร
 
-ดู [SPECIFICATION.md](SPECIFICATION.md) สำหรับข้อกำหนดฉบับเต็ม
+ดู [SPECIFICATION.th.md](SPECIFICATION.th.md) สำหรับข้อกำหนดฉบับเต็ม
 
 ## สถานะ
 

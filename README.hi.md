@@ -96,7 +96,7 @@ total: 2
 
 ## दस्तावेज़ीकरण
 
-पूर्ण विनिर्देश के लिए [SPECIFICATION.md](SPECIFICATION.md) देखें।
+पूर्ण विनिर्देश के लिए [SPECIFICATION.hi.md](SPECIFICATION.hi.md) देखें।
 
 ## स्थिति
 

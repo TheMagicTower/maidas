@@ -96,7 +96,7 @@ total: 2
 
 ## التوثيق
 
-راجع [SPECIFICATION.md](SPECIFICATION.md) للحصول على المواصفات الكاملة.
+راجع [SPECIFICATION.ar.md](SPECIFICATION.ar.md) للحصول على المواصفات الكاملة.
 
 ## الحالة
 

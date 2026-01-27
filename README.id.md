@@ -96,7 +96,7 @@ total: 2
 
 ## Dokumentasi
 
-Lihat [SPECIFICATION.md](SPECIFICATION.md) untuk spesifikasi lengkap.
+Lihat [SPECIFICATION.id.md](SPECIFICATION.id.md) untuk spesifikasi lengkap.
 
 ## Status
 
