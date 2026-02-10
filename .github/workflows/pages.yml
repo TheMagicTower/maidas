@@ -30,7 +30,8 @@ jobs:
           # MAiDAS endpoints must be served as raw markdown (not HTML).
           # Jekyll converts .md files with frontmatter to HTML,
           # so we overwrite them with the raw originals after build.
-          cp -r maidas/. _site/
+          # _site/ may be owned by root after Jekyll Docker build.
+          sudo cp -r maidas/. _site/
 
       - uses: actions/upload-pages-artifact@v3
 
