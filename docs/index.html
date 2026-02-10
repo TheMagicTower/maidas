@@ -100,7 +100,7 @@
         <p>사람에게는 읽기 좋게, 에이전트에게는 구조적으로.</p>
       </header>
       <main id="app" aria-busy="true">로딩 중...</main>
-      <div class="meta">Source: <code>docs/index.md</code></div>
+      <div class="meta" id="meta">Source: <code>index.src.md</code></div>
     </div>
 
     <script>
@@ -227,15 +227,69 @@
         return out.join("\n");
       }
 
+      const AVAILABLE = new Set([
+        "index.src.md",
+        "index.src.ko.md",
+      ]);
+
+      function languageCandidates() {
+        const langs = Array.isArray(navigator.languages) && navigator.languages.length
+          ? navigator.languages
+          : [navigator.language || "en"];
+        const normalized = [];
+        for (const lang of langs) {
+          const lower = String(lang || "").toLowerCase();
+          if (!lower) continue;
+          normalized.push(lower);
+          const base = lower.split("-")[0];
+          if (base && base !== lower) normalized.push(base);
+        }
+        normalized.push("en");
+        const files = [];
+        for (const lang of normalized) {
+          if (lang === "en") {
+            files.push("index.src.md");
+            continue;
+          }
+          files.push(`index.src.${lang}.md`);
+        }
+        files.push("index.src.md");
+        const uniq = [];
+        const seen = new Set();
+        for (const f of files) {
+          if (seen.has(f)) continue;
+          seen.add(f);
+          if (AVAILABLE.has(f)) uniq.push(f);
+        }
+        if (!uniq.includes("index.src.md")) uniq.push("index.src.md");
+        return uniq;
+      }
+
+      async function fetchFirstAvailable(candidates) {
+        let lastErr = null;
+        for (const file of candidates) {
+          try {
+            const res = await fetch(`./${file}`, { cache: "no-store" });
+            if (!res.ok) throw new Error(`HTTP ${res.status}`);
+            const md = await res.text();
+            return { file, md };
+          } catch (err) {
+            lastErr = err;
+          }
+        }
+        throw lastErr || new Error("No candidate sources available");
+      }
+
       async function main() {
         const app = document.getElementById("app");
+        const meta = document.getElementById("meta");
+        const candidates = languageCandidates();
         try {
-          const res = await fetch("./index.md", { cache: "no-store" });
-          if (!res.ok) throw new Error(`HTTP ${res.status}`);
-          const md = await res.text();
+          const { file, md } = await fetchFirstAvailable(candidates);
           app.innerHTML = markdownToHtml(md);
+          if (meta) meta.innerHTML = `Source: <code>${escapeHtml(file)}</code>`;
         } catch (err) {
-          app.innerHTML = `\n            <h2>불러오기 실패</h2>\n            <p><code>docs/index.md</code>를 읽지 못했습니다.</p>\n            <p>${escapeHtml(String(err))}</p>\n          `;
+          app.innerHTML = `\n            <h2>불러오기 실패</h2>\n            <p>언어별 소스 파일을 읽지 못했습니다.</p>\n            <p>${escapeHtml(String(err))}</p>\n          `;
         } finally {
           app.setAttribute("aria-busy", "false");
         }
